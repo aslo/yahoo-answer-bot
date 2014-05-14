@@ -1,10 +1,12 @@
 request = require 'request'
 querystring = require 'querystring'
 
+conf = require '../conf.coffee'
+
 rootUrl = 'http://answers.yahooapis.com/AnswersService/V1/questionSearch'
 
 params =
-  appid: 'awnad732'
+  appid: conf.yahoo_app_id
   output: 'json'
 
 answers =
