@@ -79,7 +79,7 @@ stream.on 'tweet', (tweet) ->
 
       return
     (err, response) ->
-      if err or if not response?
+      if err or not response?
         return null
 
       # assume the first yahoo question returned is the best match
