@@ -1,0 +1,12 @@
+{
+  "name": "yahoo-answer-bot",
+  "version": "1.0.0",
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "request": "~2.34.0",
+    "querystring": "~0.2.0",
+    "minimist": "0.0.8",
+    "step": "0.0.5",
+    "twit": "^1.1.12"
+  }
+}
