@@ -80,7 +80,8 @@ stream.on 'tweet', (tweet) ->
       return
     (err, response) ->
       if err or not response?
-        console.log 'Could not proceed with response from yahoo', err, response
+        if err
+          console.log 'Error getting yahoo answers', err.message
         return null
 
       # assume the first yahoo question returned is the best match
