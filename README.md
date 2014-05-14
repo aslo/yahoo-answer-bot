@@ -1,13 +1,15 @@
-# Yahoo Answer Bot
+# Yahoo Answer Bot 
 
+A Twitter bot that responds to publicly tweeted questions with answers from the Yahoo Answers API. 
 
-A Twitter bot that responds to publicly tweeted questions with answers from the Yahoo Answers API
+Check me out [@bad_advice_bot](https://twitter.com/bad_advice_bot)
 
 ## Getting Started
-Create a file called `conf.coffee` which exports your twitter configuration parameters, i.e.
+Create a file called `conf.coffee` at the project root which exports your configuration parameters for the yahoo and twitter API's, i.e.
 
 ```
 module.exports =
+  yahoo_app_id: YAHOO_APP_ID
   consumer_key: TWITTER_CONSUMER_KEY
   consumer_secret: TWITTER_CONSUMER_SECRET
   access_token: TWITTER_ACCESS_TOKEN
