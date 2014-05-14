@@ -16,6 +16,10 @@ answers =
     url = rootUrl + '?' + querystring.stringify(params)
 
     request url, (err, response, body) ->
-      cb err, JSON.parse body
+      try
+        cb err, JSON.parse body
+      catch e
+        console.log 'error parsing yahoo response body:', body
+        cb e
 
 module.exports = answers
