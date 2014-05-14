@@ -14,5 +14,16 @@ module.exports =
   access_token_secret: TWITTER_ACCESS_TOKEN_SECRET
 ```
 
-## The Blacklist
+### Running it
+```
+// install coffeescript
+npm install -g coffeescript
+
+// install dependencies
+cd yahoo-answer-bot && npm install
+
+coffee main.coffee
+```
+
+### The Blacklist
 To prevent the bot from tweeting certain 'blacklisted' words, add a file called `blacklist.coffee` (gitignored by default). The bot checks this list before it tweets, so if you want yahoo-answer-bot to keep it clean, this is the best way to do it.  The bot also works just fine without it.
