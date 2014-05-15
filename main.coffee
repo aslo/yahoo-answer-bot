@@ -27,7 +27,8 @@ keywords = [
 twit = new Twit conf
 stream = twit.stream 'statuses/filter', { track: keywords.join(',') }
 
-queue = []
+questionQueue = []
+answerQueue = []
 
 parseTweet = (tweetBody) ->
   tweet = tweetBody.toLowerCase()
@@ -61,7 +62,7 @@ parseTweet = (tweetBody) ->
   # reassemble the question
   return tokens.join ' '
 
-stream.on 'tweet', (tweet) ->
+processTweet = (tweet) ->
   tweeterName = '@' + tweet.user.screen_name
 
   Step(
@@ -111,19 +112,29 @@ stream.on 'tweet', (tweet) ->
         console.log 'Response tweet is: ', answer
         console.log ''
 
-        queue.push
+        answerQueue.push
           replyTo: tweet.id_str
           tweet: answer
 
         # just an arbitrary size limit
-        if queue.length > 200
-          console.log 'Queue is full. Removing the oldest tweet to make room'
-          queue.shift()
+        if answerQueue.length > 50
+          console.log 'Answer queue is full. Removing the oldest tweet to make room'
+          answerQueue.shift()
   )
 
-# every 5 minutes, pop from the queue
+# every 1 minute, pop from question queue
 setInterval( ->
-  data = queue.shift()
+  tweet = questionQueue.shift()
+  console.log 'Pop from question queue'
+
+  if tweet?
+    processTweet(tweet)
+
+, 1000*60*1)
+
+# every 10 minutes, pop from the answerQueue
+setInterval( ->
+  data = answerQueue.shift()
 
   if data?
     twit.post 'statuses/update', {
@@ -135,4 +146,14 @@ setInterval( ->
       else
         console.log 'Tweeted', result.text
 
-, 1000*60*5)
+, 1000*60*10)
+
+stream.on 'tweet', (tweet) ->
+  questionQueue.push tweet
+
+  # just an arbitrary size limit
+  if questionQueue.length > 100
+    console.log 'Question queue is full. Removing the oldest tweet to make room'
+    questionQueue.shift()
+
+console.log 'Listening for tweets!'
