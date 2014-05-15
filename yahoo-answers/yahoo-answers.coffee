@@ -16,6 +16,8 @@ answers =
     url = rootUrl + '?' + querystring.stringify(params)
 
     request url, (err, response, body) ->
+      return cb err if err
+
       parsedResponse = undefined
       try
         parsedResponse = JSON.parse body
