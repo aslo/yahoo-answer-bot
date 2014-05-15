@@ -118,23 +118,23 @@ processTweet = (tweet) ->
 
         # just an arbitrary size limit
         if answerQueue.length > 50
-          console.log 'Answer queue is full. Removing the oldest tweet to make room'
           answerQueue.shift()
   )
 
-# every 1 minute, pop from question queue
+# every 20 sec, pop from question queue
 setInterval( ->
   tweet = questionQueue.shift()
-  console.log 'Pop from question queue'
+  console.log "Pop from question queue, #{questionQueue.length} questions remain"
 
   if tweet?
     processTweet(tweet)
 
-, 1000*60*1)
+, 1000*20)
 
 # every 10 minutes, pop from the answerQueue
 setInterval( ->
   data = answerQueue.shift()
+  console.log "Pop from answer queue, #{answerQueue.length} answers remain"
 
   if data?
     twit.post 'statuses/update', {
@@ -153,7 +153,6 @@ stream.on 'tweet', (tweet) ->
 
   # just an arbitrary size limit
   if questionQueue.length > 100
-    console.log 'Question queue is full. Removing the oldest tweet to make room'
     questionQueue.shift()
 
 console.log 'Listening for tweets!'
